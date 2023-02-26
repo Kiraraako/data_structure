@@ -8,5 +8,5 @@ My sample code of data structure with c/c++ for teaching.
 - g++ version: g++ (Ubuntu 11.3.0-1ubuntu1~22.04) 11.3.0/
 
 ## :books: 参考资料
-- <数据结构教程> 第六版 ISBN：9787302597094
-- <数据结构> 第二版 ISBN: 9787040451108
+- [数据结构教程 第六版 ISBN：9787302595397](http://www.tup.com.cn/booksCenter/book_09395501.html)
+- [数据结构 第二版 ISBN: 9787040451108](https://book.douban.com/subject/26955385/)

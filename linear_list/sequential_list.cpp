@@ -49,7 +49,7 @@ void DispList(Sqlist *L)
 {
     for (int i = 0; i < L->length; i++)             // 释放顺序表输出各元素值
     {
-        printf("%d", L->data[i]);
+        printf("%d ", L->data[i]);
     }
     printf("\n");
 }
@@ -91,7 +91,7 @@ bool ListInsert(Sqlist *&L, int i, ElemType e)
     i--;                                            // 将顺序表的逻辑序号转化为物理序号
     for (j = L->length; j > i; j--)                 // 将 data[i]及后面的元素移一个位置
     {
-        L->data[i] = L->data[j - 1];
+        L->data[j] = L->data[j - 1];
     }
     L->data[i] = e;                                 // 插入元素 e
     L->length++;                                    // 顺序表的长度增 1

@@ -117,7 +117,7 @@ int LocateElem(LinkNode *L, ElemType e)
     }
     if (p == NULL)
     {
-        return (i);
+        return (0);
     }
     else
     {

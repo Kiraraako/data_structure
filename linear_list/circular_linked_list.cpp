@@ -195,14 +195,16 @@ bool ListDelete(LinkNode *&L, int i, ElemType &e)
     {
         return false;
     }
-    LinkNode *p = L->next, *q;
-    int j = 1;
+    LinkNode *p = L, *q;
     if (i == 1)
     {
-        e = p->data;
+        q = L->next;
+        e = q->data;
+        p = q->next;
         return true;
     }
-    while (j < i - 1)
+    int j = 1;
+    while (j <= i)
     {
         j++;
         p = p->next;
@@ -212,10 +214,6 @@ bool ListDelete(LinkNode *&L, int i, ElemType &e)
         }
     }
     q = p->next;
-    if (q == NULL)
-    {
-        return false;
-    }
     e = q->data;
     p->next = q->next;
     free(q);

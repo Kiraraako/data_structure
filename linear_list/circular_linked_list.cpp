@@ -160,28 +160,33 @@ int LocateElem(LinkNode *L, ElemType e)
 bool ListInsert(LinkNode *&L, int i, ElemType e)
 {
     int j = 0;
-    LinkNode *p = L, *s;
-    if (i <= 0)
+    if (i <= 0 || L->next == NULL)
     {
         return false;
     }
-    while (j < i - 1 && p != NULL)
+    LinkNode *p = L->next, *s;
+    if (i == 1 && p->data == e)
     {
-        j++;
-        p = p->next;
-    }
-    if (p == NULL)
-    {
-        return false;
+        return true;
     }
     else
     {
-        s = (LinkNode *)malloc(sizeof(LinkNode));
-        s->data = e;
-        s->next = p->next;
-        p->next = s;
-        return true;
+        p = p->next;
     }
+    while (j < i - 1)
+    {
+        j++;
+        p = p->next;
+        if (p == L->next)
+        {
+            return false;
+        }
+    }
+    s = (LinkNode *)malloc(sizeof(LinkNode));
+    s->data = e;
+    s->next = p->next;
+    p->next = s;
+    return true;
 }
 
 bool ListDelete(LinkNode *&L, int i, ElemType &e)

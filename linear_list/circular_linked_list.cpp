@@ -191,33 +191,35 @@ bool ListInsert(LinkNode *&L, int i, ElemType e)
 
 bool ListDelete(LinkNode *&L, int i, ElemType &e)
 {
-    int j = 0;
-    LinkNode *p = L, *q;
-    if (i <= 0)
+    if (i <= 0 || L->next == NULL)
     {
         return false;
     }
-    while (j < i - 1 && p != NULL)
+    LinkNode *p = L->next, *q;
+    int j = 1;
+    if (i == 1)
+    {
+        e = p->data;
+        return true;
+    }
+    while (j < i - 1)
     {
         j++;
         p = p->next;
-    }
-    if (p == NULL)
-    {
-        return false;
-    }
-    else
-    {
-        q = p->next;
-        if (q == NULL)
+        if (p = L->next)
         {
             return false;
         }
-        e = q->data;
-        p->next = q->next;
-        free(q);
-        return true;
     }
+    q = p->next;
+    if (q == NULL)
+    {
+        return false;
+    }
+    e = q->data;
+    p->next = q->next;
+    free(q);
+    return true;
 }
 
 int main()

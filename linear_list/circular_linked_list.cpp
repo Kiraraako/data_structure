@@ -103,43 +103,58 @@ void DispList(LinkNode *L)
 bool GetElem(LinkNode *L, int i, ElemType &e)
 {
     int j = 0;
-    LinkNode *p = L;
-    while (j < i && p != NULL)
-    {
-        j++;
-        p = p->next;
-        if(p->next == L->next){
-            break;
-        }
-    }
-    if (p == NULL)
+    if (L->next == NULL)
     {
         return false;
     }
     else
     {
-        e = p->data;
-        return true;
+        /* 从头节点出发，遍历一圈为止 */
+        LinkNode *p = L;
+        for (int j = 0; j < i; j++)
+        {
+            p = p->next;
+            if (p->next = L->next)
+            {
+                break;
+            }
+        }
+        /* 如果走了一圈，则说明没找到 */
+        if (p == L->next && j > 0)
+        {
+            return false;
+        }
+        else
+        {
+            e = p->data;
+            return true;
+        }
     }
 }
 
 int LocateElem(LinkNode *L, ElemType e)
 {
     int i = 1;
-    LinkNode *p = L->next;
-    while (p != NULL && p->data != e)
+    if (L->next == NULL)
     {
-        p = p->next;
-        i++;
-    }
-    if (p == NULL)
-    {
-        return (0);
+        i = 0;
     }
     else
     {
-        return (i);
+
+        LinkNode *p = L->next;
+        while (p->data != e)
+        {
+            p = p->next;
+            i++;
+            if (p = L->next)
+            {
+                i = 0;
+                break;
+            }
+        }
     }
+    return i;
 }
 
 bool ListInsert(LinkNode *&L, int i, ElemType e)
@@ -202,4 +217,5 @@ bool ListDelete(LinkNode *&L, int i, ElemType &e)
 
 int main()
 {
+    return 0;
 }

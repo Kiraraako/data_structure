@@ -1,49 +1,37 @@
 #include <iostream>
 #include <stdlib.h>
 
+/*
+    带头节点的循环双链表是链表实现中的一种很好的方案，
+    可以通过不存储数据的头结点来规避诸多的重复编码的
+    临界条件；
+*/
+
 typedef int ElemType;
 
 typedef struct LNode
 {
     ElemType data;
     struct LNode *next;
+    struct LNode *prior;
 } LinkNode;
 
-// 头插法
-void CreateListF(LinkNode *&L, ElemType a[], int n)
+void CreateList(LinkNode *&L, ElemType a[], int n)
 {
-    LinkNode *s, *tail;
+    LinkNode *s;
     L = (LinkNode *)malloc(sizeof(LinkNode));
-    L->next = NULL;
+    L->next = NULL, L->prior = NULL;
 
     for (int i = 0; i < n; i++)
     {
         s = (LinkNode *)malloc(sizeof(LinkNode));
         s->data = a[i];
         s->next = L->next;
+        s->prior = L;
         L->next = s;
-        if (i == 0)
-        {
-            tail = s;
-        }
     }
-    tail->next = L->next; // 将尾节点指向首节点形成环
-}
-
-// 尾插法
-void CreateListR(LinkNode *&L, ElemType a[], int n)
-{
-    LinkNode *s, *r;
-    L = (LinkNode *)malloc(sizeof(LinkNode));
-    r = L;
-    for (int i = 0; i < n; i++)
-    {
-        s = (LinkNode *)malloc(sizeof(LinkNode));
-        s->data = a[i];
-        r->next = s;
-        r = s;
-    }
-    r->next = L->next;
+    s->next = L;  // 将尾节点指向 Head 节点形成环
+    L->prior = s; // 将 Head 节点的 prior 指针指向最后一个节点
 }
 
 void InitList(LinkNode *&L)

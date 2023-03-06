@@ -3,8 +3,8 @@
 
 /*
     带头节点的循环双链表是链表实现中的一种很好的方案，
-    可以通过不存储数据的头结点来规避诸多的重复编码的
-    临界条件；
+    可以通过不存储数据的头结点来规避诸多的需要重复编
+    码的临界条件；
 */
 
 typedef int ElemType;
@@ -18,17 +18,18 @@ typedef struct LNode
 
 void CreateList(LinkNode *&L, ElemType a[], int n)
 {
-    LinkNode *s;
+    LinkNode *s, *p;
     L = (LinkNode *)malloc(sizeof(LinkNode));
-    L->next = NULL, L->prior = NULL;
+    L->next = L, L->prior = L;
+    p = L;
 
     for (int i = 0; i < n; i++)
     {
         s = (LinkNode *)malloc(sizeof(LinkNode));
         s->data = a[i];
-        s->next = L->next;
-        s->prior = L;
-        L->next = s;
+        s->prior = p;
+        p->next = s;
+        p = s;
     }
     s->next = L;  // 将尾节点指向 Head 节点形成环
     L->prior = s; // 将 Head 节点的 prior 指针指向最后一个节点
@@ -38,37 +39,33 @@ void InitList(LinkNode *&L)
 {
     /* 初始化只需要创建用于记录节点起始位置的头节点即可 */
     L = (LinkNode *)malloc(sizeof(LinkNode));
-    L->next = NULL;
+    L->next = L, L->prior = L;
 }
 
 void DestroyList(LinkNode *&L)
 {
-    LinkNode *pre = L, *p = L->next;
-    while (p != NULL)
+    LinkNode *p = L->next;
+    while (p != L)
     {
-        free(pre);
-        pre = p;
-        p = pre->next;
+        p = p->next;
+        free(p->prior);
     }
-    free(pre);
+    free(L);
 }
 
 bool ListEmpty(LinkNode *L)
 {
-    return (L->next == NULL);
+    return (L->next == L);
 }
 
 int ListLength(LinkNode *L)
 {
     int n = 0;
-    LinkNode *p = L;
-    if (p->next != NULL)
+    LinkNode *p = L->next;
+    while (p != L)
     {
-        while (p != L->next)
-        {
-            n++;
-            p = p->next;
-        };
+        n++;
+        p = p->next;
     }
 
     return (n);
@@ -77,13 +74,10 @@ int ListLength(LinkNode *L)
 void DispList(LinkNode *L)
 {
     LinkNode *p = L->next;
-    if (p->next != NULL)
+    while (p != L)
     {
-        while (p != L->next)
-        {
-            std::cout << p->data << " ";
-            p = p->next;
-        }
+        std::cout << p->data << " ";
+        p = p->next;
     }
     std::cout << std::endl;
 }
@@ -91,124 +85,108 @@ void DispList(LinkNode *L)
 bool GetElem(LinkNode *L, int i, ElemType &e)
 {
     int j = 0;
-    if (L->next == NULL)
+    LinkNode *p = L->next;
+    while (j < i && p != L)
+    {
+        j++;
+        p = p->next;
+    }
+    if (p == L) /* 如果走了一圈，则说明没找到 */
     {
         return false;
     }
     else
     {
-        /* 从头节点出发，遍历一圈为止 */
-        LinkNode *p = L;
-        for (int j = 0; j < i; j++)
-        {
-            p = p->next;
-            if (p->next = L->next)
-            {
-                break;
-            }
-        }
-        /* 如果走了一圈，则说明没找到 */
-        if (p == L->next && j > 0)
-        {
-            return false;
-        }
-        else
-        {
-            e = p->data;
-            return true;
-        }
+        e = p->data;
+        return true;
     }
 }
 
 int LocateElem(LinkNode *L, ElemType e)
 {
     int i = 1;
-    if (L->next == NULL)
+    LinkNode *p = L->next;
+    while (p != L && p->data != e)
     {
-        i = 0;
+        p = p->next;
+        i++;
     }
-    else
+    if (p == L)
     {
-
-        LinkNode *p = L->next;
-        while (p->data != e)
-        {
-            p = p->next;
-            i++;
-            if (p = L->next)
-            {
-                i = 0;
-                break;
-            }
-        }
+        return (0);
     }
     return i;
 }
 
 bool ListInsert(LinkNode *&L, int i, ElemType e)
 {
-    int j = 0;
-    if (i <= 0 || L->next == NULL)
-    {
-        return false;
-    }
+    int j = 1;
     LinkNode *p = L->next, *s;
-    if (i == 1 && p->data == e)
-    {
-        return true;
-    }
-    else
-    {
-        p = p->next;
-    }
-    while (j < i - 1)
+    while (p != L && j < i)
     {
         j++;
         p = p->next;
-        if (p == L->next)
-        {
-            return false;
-        }
+    }
+    if (p == L && j > i)
+    {
+        return false;
     }
     s = (LinkNode *)malloc(sizeof(LinkNode));
     s->data = e;
-    s->next = p->next;
-    p->next = s;
+    s->prior = p->prior;
+    s->next = p;
+    s->prior->next = s;
+    s->next->prior = s;
     return true;
 }
 
 bool ListDelete(LinkNode *&L, int i, ElemType &e)
 {
-    if (i <= 0 || L->next == NULL)
-    {
-        return false;
-    }
-    LinkNode *p = L, *q;
-    if (i == 1)
-    {
-        q = L->next;
-        e = q->data;
-        p = q->next;
-        return true;
-    }
     int j = 1;
-    while (j <= i)
+    LinkNode *p = L->next;
+    while (p != L && j < i)
     {
         j++;
         p = p->next;
-        if (p = L->next)
-        {
-            return false;
-        }
     }
-    q = p->next;
-    e = q->data;
-    p->next = q->next;
-    free(q);
+    if ( p == L && j > i){
+        return false;
+    }
+    e = p->data;
+    p->prior->next = p->next;
+    p->next->prior = p->prior;
+    free(p);
     return true;
 }
 
 int main()
 {
+    ElemType arr[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int len = sizeof(arr) / sizeof(ElemType);
+    LNode *L;
+    CreateList(L, arr, len);
+    DispList(L);
+    std::cout << "length: " << ListLength(L) << std::endl;
+    ElemType e = -1;
+    if (GetElem(L, 12, e))
+    {
+        std::cout << "get element: " << e << std::endl;
+    }
+    else
+    {
+        std::cout << "element not found" << std::endl;
+    }
+    if (ListInsert(L, 11, 10))
+    {
+        DispList(L);
+    }
+    else
+    {
+        std::cout << "insert failed!" << std::endl;
+    }
+    ListDelete(L, 2, e);
+    DispList(L);
+    std::cout << "delete element: " << e << std::endl;
+
     return 0;
 }

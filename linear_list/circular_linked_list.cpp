@@ -86,7 +86,10 @@ bool GetElem(LinkNode *L, int i, ElemType &e)
 {
     int j = 0;
     LinkNode *p = L->next;
-    while (j < i && p != L)
+    if(p != L){
+        j ++;
+    }
+    while (p != L && j < i )
     {
         j++;
         p = p->next;
@@ -168,7 +171,7 @@ int main()
     DispList(L);
     std::cout << "length: " << ListLength(L) << std::endl;
     ElemType e = -1;
-    if (GetElem(L, 12, e))
+    if (GetElem(L, 10, e))
     {
         std::cout << "get element: " << e << std::endl;
     }

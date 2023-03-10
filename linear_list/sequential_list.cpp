@@ -1,9 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-#define MaxSize 50
-
-typedef int ElemType;
+#include "linear_list.h"
 
 typedef struct /* sqlist */
 {

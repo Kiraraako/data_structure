@@ -1,8 +1,6 @@
 #include <iostream>
 #include <malloc.h>
-
-#define MaxSize 500
-typedef int ElementType;
+#include "stack.h"
 
 typedef struct linknode
 {

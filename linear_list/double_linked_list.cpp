@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-typedef int ElemType;
+#include "linear_list.h"
 
 typedef struct DNode
 {

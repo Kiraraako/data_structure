@@ -1,14 +1,12 @@
 #include <iostream>
 #include <stdlib.h>
+#include "linear_list.h"
 
 /*
     带头节点的循环双链表是链表实现中的一种很好的方案，
     可以通过不存储数据的头结点来规避诸多的需要重复编
     码的临界条件；
 */
-
-typedef int ElemType;
-
 typedef struct DNode
 {
     ElemType data;

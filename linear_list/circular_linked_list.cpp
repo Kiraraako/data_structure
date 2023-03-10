@@ -9,11 +9,11 @@
 
 typedef int ElemType;
 
-typedef struct LNode
+typedef struct DNode
 {
     ElemType data;
-    struct LNode *next;
-    struct LNode *prior;
+    struct DNode *next;
+    struct DNode *prior;
 } LinkNode;
 
 void CreateList(LinkNode *&L, ElemType a[], int n)
@@ -123,16 +123,16 @@ int LocateElem(LinkNode *L, ElemType e)
 
 bool ListInsert(LinkNode *&L, int i, ElemType e)
 {
+    /*
+        对于循环链表，如果插入序号大于链本身的长度，
+        将结点插入到链尾即可；
+    */
     int j = 1;
     LinkNode *p = L->next, *s;
     while (p != L && j < i)
     {
         j++;
         p = p->next;
-    }
-    if (p == L && j > i)
-    {
-        return false;
     }
     s = (LinkNode *)malloc(sizeof(LinkNode));
     s->data = e;
@@ -166,7 +166,7 @@ int main()
 {
     ElemType arr[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
     int len = sizeof(arr) / sizeof(ElemType);
-    LNode *L;
+    DNode *L;
     CreateList(L, arr, len);
     DispList(L);
     std::cout << "length: " << ListLength(L) << std::endl;

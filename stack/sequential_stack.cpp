@@ -1,10 +1,10 @@
 #include <iostream>
 #include <malloc.h>
-#include "stack.h"
+#include "common.h"
 
 typedef struct
 {
-    ElementType data[MaxSize]; // 存放栈中的数据元素
+    ElemType data[MaxSize]; // 存放栈中的数据元素
     int top;                   // 栈顶指针
 } SqStack;                     // 顺序栈类型
 
@@ -24,7 +24,7 @@ bool StackEmpty(SqStack *&s)
     return (s->top == -1);
 }
 
-bool Push(SqStack *&s, ElementType &e)
+bool Push(SqStack *&s, ElemType &e)
 {
     if (s->top == MaxSize - 1) // 栈满的情况，栈上溢出
     {
@@ -35,7 +35,7 @@ bool Push(SqStack *&s, ElementType &e)
     return true;
 }
 
-bool Pop(SqStack *&s, ElementType &e)
+bool Pop(SqStack *&s, ElemType &e)
 {
     if (s->top == -1) // 栈满的情况，栈上溢出
     {
@@ -46,7 +46,7 @@ bool Pop(SqStack *&s, ElementType &e)
     return true;
 }
 
-bool GetTop(SqStack *s, ElementType &e)
+bool GetTop(SqStack *s, ElemType &e)
 {
     if (s->top == -1) // 栈为空的情况，即栈下溢出
     {
@@ -56,9 +56,9 @@ bool GetTop(SqStack *s, ElementType &e)
     return true;
 }
 
-bool symmetry(ElementType str[])
+bool symmetry(ElemType str[])
 {
-    ElementType e;
+    ElemType e;
     SqStack *st;
     InitStack(st);
     for (int i = 0; str[i] != '\0'; i++)

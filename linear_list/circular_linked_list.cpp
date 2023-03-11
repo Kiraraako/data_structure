@@ -1,6 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
-#include "linear_list.h"
+#include "common.h"
 
 /*
     带头节点的循环双链表是链表实现中的一种很好的方案，

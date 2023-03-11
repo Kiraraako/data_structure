@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "linear_list.h"
+#include "common.h"
 
 typedef struct DNode
 {

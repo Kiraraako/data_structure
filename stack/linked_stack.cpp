@@ -1,10 +1,10 @@
 #include <iostream>
 #include <malloc.h>
-#include "stack.h"
+#include "common.h"
 
 typedef struct linknode
 {
-    ElementType data;      // 数据域
+    ElemType data;         // 数据域
     struct linknode *next; // 指针域
 } LinkStnode;              // 链栈节点类型
 
@@ -31,7 +31,7 @@ bool StackEmpty(LinkStnode *s)
     return (s->next == NULL);
 }
 
-bool Push(LinkStnode *&s, ElementType e)
+bool Push(LinkStnode *&s, ElemType e)
 {
     LinkStnode *p;
     p = (LinkStnode *)malloc(sizeof(LinkStnode)); // 新建节点
@@ -41,7 +41,7 @@ bool Push(LinkStnode *&s, ElementType e)
     return true;
 }
 
-bool Pop(LinkStnode *&s, ElementType &e)
+bool Pop(LinkStnode *&s, ElemType &e)
 {
     linknode *p;
     if (s->next == NULL) // 栈空的情况
@@ -55,7 +55,7 @@ bool Pop(LinkStnode *&s, ElementType &e)
     return true;
 }
 
-bool GetTop(LinkStnode *s, ElementType &e)
+bool GetTop(LinkStnode *s, ElemType &e)
 {
     if (s->next == NULL) // 栈空的情况
     {

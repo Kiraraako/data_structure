@@ -3,4 +3,4 @@
 set -Eeuxo pipefail
 
 filename=${1:?"filename missing"}
-g++ "${filename}" -I "${PWD}"
+g++ "${filename}" -I./include

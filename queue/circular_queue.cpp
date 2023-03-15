@@ -1,4 +1,3 @@
-#include <iostream>
 #include "common.h"
 
 typedef struct circular_queue

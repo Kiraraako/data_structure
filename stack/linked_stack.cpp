@@ -1,5 +1,3 @@
-#include <iostream>
-#include <malloc.h>
 #include "common.h"
 
 typedef struct linknode

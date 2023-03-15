@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "common.h"
 
 typedef struct LNode
@@ -79,10 +77,10 @@ void DispList(LinkNode *L)
     LinkNode *p = L->next;
     while (p != NULL)
     {
-        printf("%d", p->data);
+        cout << p->data << " ";
         p = p->next;
     }
-    printf("\n");
+    cout << endl;
 }
 
 bool GetElem(LinkNode *L, int i, ElemType &e)

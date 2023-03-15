@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "common.h"
 
 typedef struct /* sqlist */
@@ -48,9 +46,9 @@ void DispList(Sqlist *L)
 {
     for (int i = 0; i < L->length; i++) // 释放顺序表输出各元素值
     {
-        printf("%d ", L->data[i]);
+        cout << L->data[i] << " ";
     }
-    printf("\n");
+    cout << endl;
 }
 
 bool GetElem(Sqlist *L, int i, ElemType &e)

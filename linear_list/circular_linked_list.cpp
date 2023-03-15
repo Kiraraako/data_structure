@@ -1,5 +1,3 @@
-#include <iostream>
-#include <stdlib.h>
 #include "common.h"
 
 /*
@@ -74,10 +72,10 @@ void DispList(LinkNode *L)
     LinkNode *p = L->next;
     while (p != L)
     {
-        std::cout << p->data << " ";
+        cout << p->data << " ";
         p = p->next;
     }
-    std::cout << std::endl;
+    cout << endl;
 }
 
 bool GetElem(LinkNode *L, int i, ElemType &e)
@@ -167,15 +165,15 @@ int main()
     DNode *L;
     CreateList(L, arr, len);
     DispList(L);
-    std::cout << "length: " << ListLength(L) << std::endl;
+    cout << "length: " << ListLength(L) << endl;
     ElemType e = -1;
     if (GetElem(L, 10, e))
     {
-        std::cout << "get element: " << e << std::endl;
+        cout << "get element: " << e << endl;
     }
     else
     {
-        std::cout << "element not found" << std::endl;
+        cout << "element not found" << endl;
     }
     if (ListInsert(L, 11, 10))
     {
@@ -183,11 +181,11 @@ int main()
     }
     else
     {
-        std::cout << "insert failed!" << std::endl;
+        cout << "insert failed!" << endl;
     }
     ListDelete(L, 2, e);
     DispList(L);
-    std::cout << "delete element: " << e << std::endl;
+    cout << "delete element: " << e << endl;
 
     return 0;
 }
